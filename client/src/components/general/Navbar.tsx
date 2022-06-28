@@ -20,14 +20,14 @@ const Navbar = () => {
   })
 
   return (
-    <div className='flex items-center justify-between md:px-20 md:py-5 px-6 py-6 w-full'>
+    <div className='flex items-center justify-between md:px-20 md:py-7 px-6 py-6 w-full'>
       <Link to='/'>
         <h1 className='text-xl font-medium'>URL Shortify</h1>
       </Link>
       <div className='md:hidden block' onClick={() => setOpenSidebar(true)}>
         <GiHamburgerMenu />
       </div>
-      <div ref={sidebarRef} className={`p-6 flex md:flex-row flex-col md:items-center md:gap-10 gap-6 text-sm md:static fixed top-0 ${openSidebar ? 'right-0' : '-right-[2000px]'} md:h-auto h-screen md:shadow-none shadow-xl md:border-none border border-gray-200 md:w-auto w-[200px] md:bg-transparent bg-white transition-all`}>
+      <div ref={sidebarRef} className={`md:p-0 p-6 flex md:flex-row flex-col md:items-center md:gap-10 gap-6 text-sm md:static fixed top-0 ${openSidebar ? 'right-0' : '-right-[2000px]'} md:h-auto h-screen md:shadow-none shadow-xl md:border-none border border-gray-200 md:w-auto w-[200px] md:bg-transparent bg-white transition-all`}>
         <div className='md:hidden block' onClick={() => setOpenSidebar(false)}>
           <AiOutlineClose />
         </div>
