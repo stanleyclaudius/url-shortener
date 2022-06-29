@@ -11,7 +11,9 @@ const Home = () => {
   return (
     <>
       <Head title='Home' />
-      <div className='flex flex-col h-screen'>
+      <div className='flex flex-col h-screen relative'>
+        <img src='/images/right-illustration.png' alt='URL Shortify' width={500} className='md:block hidden absolute -top-1 right-0 -z-[999]' />
+        <img src='/images/left-illustration.png' alt='URL Shortify' className='md:block hidden absolute bottom-0 left-0 -z-[999]' />
         <Navbar />
         <div className='flex flex-col justify-center flex-1 px-6'>
           <div className='text-center'>

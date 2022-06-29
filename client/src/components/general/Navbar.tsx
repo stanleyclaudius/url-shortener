@@ -26,8 +26,9 @@ const Navbar = () => {
   return (
     <>
       <div className='flex items-center justify-between md:px-20 md:py-5 px-6 py-6 w-full'>
-        <Link to='/' className='outline-0'>
-          <h1 className='text-xl font-medium'>URL Shortify</h1>
+        <Link to='/' className='outline-0 flex items-center gap-4'>
+          <img src='/images/logo.png' width={20} alt='URL Shortify' />
+          <h1 className='text-xl font-medium after:content-[""] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-[3px] after:bg-primary relative'>URL Shortify</h1>
         </Link>
         <div className='md:hidden block cursor-pointer' onClick={() => setOpenSidebar(true)}>
           <GiHamburgerMenu />
@@ -37,7 +38,7 @@ const Navbar = () => {
             <AiOutlineClose className='float-right' />
           </div>
           <div className='clear-both' />
-          <p onClick={() => setOpenLoginModal(true)} className='w-fit cursor-pointer'>Sign In</p>
+          <p onClick={() => setOpenLoginModal(true)} className='w-fit cursor-pointer md:text-white text-black'>Sign In</p>
           <p onClick={() => setOpenRegisterModal(true)} className='bg-primary cursor-pointer hover:bg-primaryHover text-white rounded-md px-3 py-2 transition-all w-fit'>Sign Up</p>
         </div>
       </div>
