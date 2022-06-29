@@ -20,7 +20,7 @@ const Navbar = () => {
   })
 
   return (
-    <div className='flex items-center justify-between md:px-20 md:py-7 px-6 py-6 w-full'>
+    <div className='flex items-center justify-between md:px-20 md:py-5 px-6 py-6 w-full'>
       <Link to='/'>
         <h1 className='text-xl font-medium'>URL Shortify</h1>
       </Link>
