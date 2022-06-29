@@ -17,7 +17,7 @@ const Navbar = () => {
 
     document.addEventListener('mousedown', checkIfClickedOutside)
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
-  })
+  }, [openSidebar])
 
   return (
     <div className='flex items-center justify-between md:px-20 md:py-5 px-6 py-6 w-full'>
