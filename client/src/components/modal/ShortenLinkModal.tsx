@@ -1,6 +1,7 @@
 import { useState, useEffect,useRef } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { BsLink45Deg } from 'react-icons/bs'
+import { FormSubmit } from '../../utils/Interface'
 
 interface IProps {
   url: string
@@ -12,6 +13,10 @@ interface IProps {
 const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
   const [shorterUrl, setShorterUrl] = useState('')
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  const handleSubmit = (e: FormSubmit) => {
+    e.preventDefault()
+  }
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -35,7 +40,7 @@ const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
           <AiOutlineClose className='text-xl cursor-pointer' onClick={() => setOpenModal(false)} />
         </div>
         <div className='p-7'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className='bg-gray-100 p-4 rounded-md flex items-center gap-4 mb-7'>
               <BsLink45Deg className='text-3xl text-gray-500' />
               <input type='text' value={url} onChange={e => setUrl(e.target.value)} placeholder='Paste a link to shorten it' className='w-full bg-transparent text-sm outline-0 text-gray-500' />
