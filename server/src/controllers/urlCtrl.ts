@@ -44,7 +44,21 @@ const urlCtrl = {
     }
   },
   getUrlsByUser: async(req: IReqUser, res: Response) => {
+    try {
+      const urls = await AppDataSource.query(
+        `
+          SELECT *
+          FROM url
+          WHERE "userId" = $1
+        `
+      , [req.user?.id])
 
+      return res.status(200).json({
+        urls
+      })
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message })
+    }
   },
   deleteUrl: async(req: IReqUser, res: Response) => {
 
