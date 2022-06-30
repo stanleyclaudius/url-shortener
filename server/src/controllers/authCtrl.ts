@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { User } from './../entities/User'
-import { isEmailValid } from './../utils/checkEmail'
+import { isEmailValid } from './../utils/helper'
 import { AppDataSource } from './../utils/dataSource'
 import { IAuthError, IJwtDecode } from './../utils/Interface'
 import { generateAccessToken, generateRefreshToken } from '../utils/generateToken'

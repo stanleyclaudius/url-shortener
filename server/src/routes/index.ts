@@ -1,5 +1,7 @@
 import auth from './auth.route'
+import url from './url.route'
 
-export const router = {
-  auth
+export const routes = {
+  auth,
+  url
 }
