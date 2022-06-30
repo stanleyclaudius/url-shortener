@@ -4,11 +4,13 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import LoginModal from './../modal/LoginModal'
 import RegisterModal from '../modal/RegisterModal'
+import UrlsModal from '../modal/UrlsModal.'
 
 const Navbar = () => {
   const [openSidebar, setOpenSidebar] = useState(false)
   const [openLoginModal, setOpenLoginModal] = useState(false)
   const [openRegisterModal, setOpenRegisterModal] = useState(false)
+  const [openUrlsModal, setOpenUrlsModal] = useState(false)
   
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
@@ -51,6 +53,11 @@ const Navbar = () => {
       <RegisterModal
         openModal={openRegisterModal}
         setOpenModal={setOpenRegisterModal}
+      />
+
+      <UrlsModal
+        openModal={openUrlsModal}
+        setOpenModal={setOpenUrlsModal}
       />
     </>
   )
