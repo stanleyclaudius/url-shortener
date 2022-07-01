@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { IReqUser } from './../utils/Interface'
-import { isURLValid, randomString } from '../utils/helper'
+import { isURLValid, randomString } from './../utils/helper'
 import { AppDataSource } from './../utils/dataSource'
 import { Url } from './../entities/Url'
 

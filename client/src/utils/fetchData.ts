@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:5000'
+axios.defaults.baseURL = 'https://url-shortify-server.herokuapp.com'
 axios.defaults.withCredentials = true
 
 export const getDataAPI = async(url: string, token?: string) => {

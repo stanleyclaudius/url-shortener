@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node dist/index",
     "dev": "ts-node-dev src/index",
-    "build": "tsc"
+    "build": "tsc",
+    "heroku-postbuild": "tsc"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

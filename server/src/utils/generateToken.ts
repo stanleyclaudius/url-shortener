@@ -11,7 +11,9 @@ export const generateRefreshToken = (payload: any, res: Response) => {
   res.cookie('urlShortify_refreshToken', token, {
     httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    path: '/api/v1/auth/refresh_token'
+    path: '/api/v1/auth/refresh_token',
+    sameSite: 'none',
+    secure: true
   })
 
   return token

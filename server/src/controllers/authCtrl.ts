@@ -3,7 +3,7 @@ import { User } from './../entities/User'
 import { isEmailValid } from './../utils/helper'
 import { AppDataSource } from './../utils/dataSource'
 import { IAuthError, IJwtDecode } from './../utils/Interface'
-import { generateAccessToken, generateRefreshToken } from '../utils/generateToken'
+import { generateAccessToken, generateRefreshToken } from './../utils/generateToken'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
