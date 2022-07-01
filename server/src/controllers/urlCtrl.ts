@@ -50,6 +50,7 @@ const urlCtrl = {
           SELECT *
           FROM url
           WHERE "userId" = $1
+          ORDER BY id DESC
         `
       , [req.user?.id])
 
@@ -61,7 +62,19 @@ const urlCtrl = {
     }
   },
   deleteUrl: async(req: IReqUser, res: Response) => {
+    try {
+      await AppDataSource
+              .getRepository(Url)
+              .createQueryBuilder()
+              .delete()
+              .from(Url)
+              .where('id = :id AND "userId" := userId', { id: req.params.id, userId: req.user?.id })
+              .execute()
 
+      return res.status(200).json({ msg: 'URL has been deleted successfully.' })
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message })
+    }
   }
 }
 
