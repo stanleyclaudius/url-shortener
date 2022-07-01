@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import alert from './slice/alertSlice'
 import auth from './slice/authSlice'
+import url from './slice/urlSlice'
 
 interface IProps {
   children: ReactNode
@@ -11,7 +12,8 @@ interface IProps {
 const store = configureStore({
   reducer: {
     alert,
-    auth
+    auth,
+    url
   }
 })
 

@@ -28,3 +28,14 @@ export interface ILoginData {
   email: string
   password: string
 }
+
+export interface IUrl {
+  id: number
+  originalUrl: string
+  shorterUrl: string
+}
+
+export interface IDeleteUrl {
+  id: number
+  token: string
+}

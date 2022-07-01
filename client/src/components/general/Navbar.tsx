@@ -51,6 +51,7 @@ const Navbar = () => {
             ? (
               <>
                 <p className='md:text-white text-black'>Hi, {auth.user?.name}</p>
+                <p onClick={() => setOpenUrlsModal(true)} className='md:text-white text-black cursor-pointer'>My URLs</p>
                 <p onClick={() => dispatch(logout(`${auth.token}`))} className='bg-primary cursor-pointer hover:bg-primaryHover text-white rounded-md px-3 py-2 transition-all w-fit'>Logout</p>
               </>
             )

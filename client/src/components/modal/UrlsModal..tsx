@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import UrlCard from '../general/UrlCard'
+import { AppDispatch, RootState } from './../../redux/store'
+import UrlCard from './../general/UrlCard'
+import { getUrls } from '../../redux/slice/urlSlice'
 
 interface IProps {
   openModal: boolean
@@ -9,6 +12,14 @@ interface IProps {
 
 const UrlsModal = ({ openModal, setOpenModal }: IProps) => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  const dispatch = useDispatch<AppDispatch>()
+  const { url, auth } = useSelector((state: RootState) => state)
+
+  useEffect(() => {
+    if (auth.token)
+      dispatch(getUrls(auth.token))
+  }, [dispatch, auth.token])
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -32,10 +43,16 @@ const UrlsModal = ({ openModal, setOpenModal }: IProps) => {
           <AiOutlineClose className='text-xl cursor-pointer' onClick={() => setOpenModal(false)} />
         </div>
         <div className='grid md:grid-cols-2 grid-cols-1 px-7 py-5 gap-10'>
-          <UrlCard
-            shorterURL='https://'
-            originalURL='https://'
-          />
+          {
+            url.map(item => (
+              <UrlCard
+                key={item.id}
+                id={item.id}
+                shorterURL={item.shorterUrl}
+                originalURL={item.originalUrl}
+              />
+            ))
+          }
         </div>
       </div>
     </div>
