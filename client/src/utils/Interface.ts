@@ -3,9 +3,8 @@ import { ChangeEvent, FormEvent } from "react";
 export type InputChange = ChangeEvent<HTMLInputElement>
 export type FormSubmit = FormEvent<HTMLFormElement>
 
-export interface IUser extends ILoginData {
+export interface IUser extends IRegisterData {
   id: number
-  name: string
   createdAt: Date
   updatedAt: Date
 }
@@ -19,6 +18,10 @@ export interface IAlert {
 export interface IAuth {
   token?: string
   user?: IUser
+}
+
+export interface IRegisterData extends ILoginData {
+  name: string
 }
 
 export interface ILoginData {

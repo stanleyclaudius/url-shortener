@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange } from './../../utils/Interface'
+import { AppDispatch, RootState } from '../../redux/store'
+import { isEmailValid } from '../../utils/helper'
+import { register } from '../../redux/slice/authSlice'
+import Loader from '../general/Loader'
 
 interface IProps {
   openModal: boolean
@@ -17,13 +22,71 @@ const RegisterModal = ({ openModal, setOpenModal }: IProps) => {
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
+  const dispatch = useDispatch<AppDispatch>()
+  const { alert } = useSelector((state: RootState) => state)
+
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
 
-  const handleSubmit = (e: FormSubmit) => {
+  const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
+
+    if (!userData.name) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Please provide your name to register.' }
+      })
+    }
+
+    if (!userData.email) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Please provide your email to register.' }
+      })
+    } else if (!isEmailValid(userData.email)) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Please provide valid email address to register.' }
+      })
+    }
+
+    if (!userData.password) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Please provide your password to register.' }
+      })
+    }
+
+    if (userData.password.length < 8) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Password should be at least 8 characters.' }
+      })
+    }
+
+    if (userData.password !== userData.passwordConfirmation) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Password confirmation should be matched.' }
+      })
+    }
+
+    await dispatch(register({
+      name: userData.name,
+      email: userData.email,
+      password: userData.password
+    }))
+
+    setUserData({
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirmation: ''
+    })
+
+    setOpenModal(false)
   }
 
   useEffect(() => {
@@ -65,7 +128,13 @@ const RegisterModal = ({ openModal, setOpenModal }: IProps) => {
             <input type='password' name='passwordConfirmation' id='passwordConfirmation' value={userData.passwordConfirmation} onChange={handleChange} className='w-full border border-gray-300 rounded-md outline-0 mt-3 indent-3 h-10 text-sm' />
           </div>
           <div className='text-right'>
-            <button className='text-sm text-white bg-primary hover:bg-primaryHover transition-all rounded-md px-3 py-2 outline-0'>Sign Up</button>
+            <button disabled={alert.loading ? true : false} className={`text-sm text-white ${alert.loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-primary hover:bg-primaryHover cursor-pointer'} transition-all rounded-md px-3 py-2 outline-0`}>
+              {
+                alert.loading
+                ? <Loader />
+                : 'Sign Up'
+              }
+            </button>
           </div>
         </form>
       </div>

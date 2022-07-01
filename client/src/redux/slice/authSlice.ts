@@ -1,8 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getDataAPI, postDataAPI } from '../../utils/fetchData'
-import { IAuth, ILoginData } from '../../utils/Interface'
+import { IAuth, ILoginData, IRegisterData } from '../../utils/Interface'
 
 const initialState: IAuth = {}
+
+export const register = createAsyncThunk(
+  'auth/register',
+  async(data: IRegisterData, thunkAPI) => {
+    try {
+      thunkAPI.dispatch({ type: 'alert/alert', payload: { loading: true } })
+      
+      const res = await postDataAPI('auth/register', data)
+      
+      thunkAPI.dispatch({ type: 'alert/alert', payload: { success: res.data.msg } })
+    } catch (err: any) {
+      thunkAPI.dispatch({ type: 'alert/alert', payload: { error: err.response.data.error } })
+    }
+  }
+)
 
 export const login = createAsyncThunk(
   'auth/login',
