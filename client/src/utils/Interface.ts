@@ -30,12 +30,17 @@ export interface ILoginData {
 }
 
 export interface IUrl {
-  id: number
+  id?: number
   originalUrl: string
   shorterUrl: string
 }
 
 export interface IDeleteUrl {
-  id: number
+  id: string
+  token: string
+}
+
+export interface IShortenUrl {
+  body: IUrl
   token: string
 }

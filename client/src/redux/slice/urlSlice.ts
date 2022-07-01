@@ -1,9 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { deleteDataAPI, getDataAPI } from '../../utils/fetchData'
-import { IDeleteUrl, IUrl } from '../../utils/Interface'
+import { deleteDataAPI, getDataAPI, postDataAPI } from '../../utils/fetchData'
+import { IDeleteUrl, IShortenUrl, IUrl } from '../../utils/Interface'
 import { RootState } from '../store'
 
 const initialState: IUrl[] = []
+
+export const shortenUrl = createAsyncThunk(
+  'url/shorten',
+  async(data: IShortenUrl, thunkAPI) => {
+    try {
+      const state = (thunkAPI.getState() as RootState).url
+      thunkAPI.dispatch({ type: 'alert/alert', payload: { loading: true } })
+
+      const res = await postDataAPI('url', data.body, data.token)
+
+      thunkAPI.dispatch({ type: 'alert/alert', payload: { success: 'URL has been shortened. Please check your URL list for further information.' } })
+
+      return [res.data.data, ...state]
+    } catch (err: any) {
+      thunkAPI.dispatch({ type: 'alert/alert', payload: { error: err.response.data.error } })
+    }
+  }
+)
 
 export const getUrls = createAsyncThunk(
   'url/get',
@@ -25,7 +43,7 @@ export const deleteUrl = createAsyncThunk(
       const res = await deleteDataAPI(`url/${data.id}`, data.token)
       thunkAPI.dispatch({ type: 'alert/alert', payload: { success: res.data.msg } })
       
-      return state.filter(item => item.id !== data.id)
+      return state.filter(item => item.shorterUrl !== data.id)
     } catch (err: any) {
       thunkAPI.dispatch({ type: 'alert/alert', payload: { error: err.response.data.error } })
     }

@@ -5,12 +5,11 @@ import { AppDispatch, RootState } from '../../redux/store'
 import { deleteUrl } from '../../redux/slice/urlSlice'
 
 interface IProps {
-  id: number
   shorterURL: string
   originalURL: string
 }
 
-const UrlCard = ({ id, shorterURL, originalURL }: IProps) => {
+const UrlCard = ({ shorterURL, originalURL }: IProps) => {
   const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootState) => state)
 
@@ -24,7 +23,7 @@ const UrlCard = ({ id, shorterURL, originalURL }: IProps) => {
         <p className='text-gray-500 text-xs mb-2'>Shorter URL</p>
         <Link to={`/${shorterURL}`} target='_blank' className='text-gray-800 text-sm break-words'>{shorterURL}</Link>
       </div>
-      <FaTrash onClick={() => dispatch(deleteUrl({id, token: `${auth.token}`}))} className='text-red-500 cursor-pointer' />
+      <FaTrash onClick={() => dispatch(deleteUrl({id: shorterURL, token: `${auth.token}`}))} className='text-red-500 cursor-pointer' />
     </div>
   )
 }

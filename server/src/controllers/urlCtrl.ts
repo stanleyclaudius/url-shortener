@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { IReqUser } from './../utils/Interface'
 import { isURLValid, randomString } from '../utils/helper'
 import { AppDataSource } from './../utils/dataSource'
@@ -43,6 +43,17 @@ const urlCtrl = {
       return res.status(500).json({ error: err.message })
     }
   },
+  getUrlById: async(req: Request, res: Response) => {
+    try {
+      const url = await Url.findOne({ where: { shorterUrl: req.params.id } })
+      if (!url)
+        return res.status(404).json({ error: 'URL not found.' })
+
+      return res.status(200).json({ url })
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message })
+    }
+  },
   getUrlsByUser: async(req: IReqUser, res: Response) => {
     try {
       const urls = await AppDataSource.query(
@@ -67,7 +78,7 @@ const urlCtrl = {
         `
           SELECT *
           FROM url
-          WHERE id = $1 AND "userId" = $2
+          WHERE "shorterUrl" = $1 AND "userId" = $2
         `
       , [req.params.id, req.user?.id])
 
@@ -79,7 +90,7 @@ const urlCtrl = {
               .createQueryBuilder()
               .delete()
               .from(Url)
-              .where('id = :id', { id: req.params.id })
+              .where('"shorterUrl" = :shorterUrl', { shorterUrl: req.params.id })
               .execute()
 
       return res.status(200).json({ msg: 'URL has been deleted successfully.' })

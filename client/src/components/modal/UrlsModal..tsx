@@ -47,7 +47,6 @@ const UrlsModal = ({ openModal, setOpenModal }: IProps) => {
             url.map(item => (
               <UrlCard
                 key={item.id}
-                id={item.id}
                 shorterURL={item.shorterUrl}
                 originalURL={item.originalUrl}
               />

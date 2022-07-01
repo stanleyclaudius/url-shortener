@@ -5,7 +5,7 @@ import { BsLink45Deg } from 'react-icons/bs'
 import { FormSubmit } from '../../utils/Interface'
 import { AppDispatch, RootState } from '../../redux/store'
 import { isURLValid } from '../../utils/helper'
-import { postDataAPI } from '../../utils/fetchData'
+import { shortenUrl } from '../../redux/slice/urlSlice'
 import Loader from './../general/Loader'
 
 interface IProps {
@@ -17,12 +17,11 @@ interface IProps {
 
 const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
   const [shorterUrl, setShorterUrl] = useState('')
-  const [loading, setLoading] = useState(false)
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootState) => state)
+  const { auth, alert } = useSelector((state: RootState) => state)
 
   const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
@@ -48,15 +47,13 @@ const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
       })
     }
 
-    setLoading(true)
-    await postDataAPI('url', { originalUrl: url, shorterUrl }, auth.token)
-    setLoading(false)
-    
-    dispatch({
-      type: 'alert/alert',
-      payload: { success: 'URL has been shortened. Please check your URL list for further information.' }
-    })
-    
+    await dispatch(shortenUrl({
+      body: {
+        originalUrl: url,
+        shorterUrl: shorterUrl
+      },
+      token: auth.token
+    }))
     setUrl('')
     setShorterUrl('')
     setOpenModal(false)
@@ -99,9 +96,9 @@ const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
               <input type='text' value={shorterUrl} onChange={e => setShorterUrl(e.target.value)} placeholder='Cutom shorter URL (optional)' className='w-full bg-transparent text-sm outline-0 text-gray-500' />
             </div>
             <div className='text-center'>
-              <button disabled={loading ? true : false} className={`text-sm ${loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-primary hover:bg-primaryHover cursor-pointer'} transition-all rounded-md outline-0 shadow-xl text-white px-4 py-3`}>
+              <button disabled={alert.loading ? true : false} className={`text-sm ${alert.loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-primary hover:bg-primaryHover cursor-pointer'} transition-all rounded-md outline-0 shadow-xl text-white px-4 py-3`}>
                 {
-                  loading
+                  alert.loading
                   ? <Loader />
                   : 'Shorten'
                 }

@@ -8,6 +8,8 @@ router.route('/')
   .post(isAuthenticated, urlCtrl.shortenUrl)
   .get(isAuthenticated, urlCtrl.getUrlsByUser)
 
-router.route('/:id').delete(isAuthenticated, urlCtrl.deleteUrl)
+router.route('/:id')
+  .get(urlCtrl.getUrlById)
+  .delete(isAuthenticated, urlCtrl.deleteUrl)
 
 export default router
