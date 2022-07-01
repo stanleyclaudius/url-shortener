@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { FaTrash } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { AppDispatch, RootState } from '../../redux/store'
-import { deleteUrl } from '../../redux/slice/urlSlice'
+import { FaTrash } from 'react-icons/fa'
+import { AppDispatch, RootState } from './../../redux/store'
+import { deleteUrl } from './../../redux/slice/urlSlice'
 
 interface IProps {
   shorterURL: string
@@ -21,7 +21,7 @@ const UrlCard = ({ shorterURL, originalURL }: IProps) => {
       </div>
       <div className='mb-5'>
         <p className='text-gray-500 text-xs mb-2'>Shorter URL</p>
-        <Link to={`/${shorterURL}`} target='_blank' className='text-gray-800 text-sm break-words'>{shorterURL}</Link>
+        <Link to={`/${shorterURL}`} target='_blank' className='text-gray-800 text-sm break-words'>{window.location.href + shorterURL}</Link>
       </div>
       <FaTrash onClick={() => dispatch(deleteUrl({id: shorterURL, token: `${auth.token}`}))} className='text-red-500 cursor-pointer' />
     </div>

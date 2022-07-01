@@ -3,9 +3,9 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormSubmit, InputChange } from './../../utils/Interface'
 import { login } from './../../redux/slice/authSlice'
-import { AppDispatch, RootState } from '../../redux/store'
-import { isEmailValid } from '../../utils/helper'
-import Loader from '../general/Loader'
+import { AppDispatch, RootState } from './../../redux/store'
+import { isEmailValid } from './../../utils/helper'
+import Loader from './../general/Loader'
 
 interface IProps {
   openModal: boolean

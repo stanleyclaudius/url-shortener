@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getDataAPI } from '../utils/fetchData'
+import { getDataAPI } from './../utils/fetchData'
 
 const RedirectPage = () => {
   const [error, setError] = useState('')

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { deleteDataAPI, getDataAPI, postDataAPI } from '../../utils/fetchData'
-import { IDeleteUrl, IShortenUrl, IUrl } from '../../utils/Interface'
-import { RootState } from '../store'
+import { deleteDataAPI, getDataAPI, postDataAPI } from './../../utils/fetchData'
+import { IDeleteUrl, IShortenUrl, IUrl } from './../../utils/Interface'
+import { RootState } from './../store'
 
 const initialState: IUrl[] = []
 

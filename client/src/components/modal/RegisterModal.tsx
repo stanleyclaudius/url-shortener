@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange } from './../../utils/Interface'
-import { AppDispatch, RootState } from '../../redux/store'
-import { isEmailValid } from '../../utils/helper'
-import { register } from '../../redux/slice/authSlice'
-import Loader from '../general/Loader'
+import { AppDispatch, RootState } from './../../redux/store'
+import { isEmailValid } from './../../utils/helper'
+import { register } from './../../redux/slice/authSlice'
+import Loader from './../general/Loader'
 
 interface IProps {
   openModal: boolean

@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { AppDispatch, RootState } from './../../redux/store'
+import { getUrls } from './../../redux/slice/urlSlice'
 import UrlCard from './../general/UrlCard'
-import { getUrls } from '../../redux/slice/urlSlice'
 
 interface IProps {
   openModal: boolean

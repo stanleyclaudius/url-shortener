@@ -4,7 +4,7 @@ export const isEmailValid = (email: string) => {
 }
 
 export const isURLValid = (str: string) => {
-  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+  var pattern = new RegExp('^(https?:\\/\\/)'+ // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
@@ -14,12 +14,12 @@ export const isURLValid = (str: string) => {
 }
 
 export const randomString = (length = 8) => {
-  let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-  let str = '';
+  let str = ''
   for (let i = 0; i < length; i++) {
-      str += chars.charAt(Math.floor(Math.random() * chars.length));
+      str += chars.charAt(Math.floor(Math.random() * chars.length))
   }
 
-  return str;
-};
+  return str
+}

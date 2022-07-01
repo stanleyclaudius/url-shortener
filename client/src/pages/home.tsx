@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BsLink45Deg } from 'react-icons/bs'
-import Illustration from '../components/general/Illustration'
-import ShortenLinkModal from '../components/modal/ShortenLinkModal'
+import Illustration from './../components/general/Illustration'
+import ShortenLinkModal from './../components/modal/ShortenLinkModal'
 import Navbar from './../components/general/Navbar'
 import Head from './../utils/Head'
 

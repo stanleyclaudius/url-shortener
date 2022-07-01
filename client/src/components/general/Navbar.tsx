@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { AppDispatch, RootState } from './../../redux/store'
+import { logout } from './../../redux/slice/authSlice'
 import LoginModal from './../modal/LoginModal'
-import RegisterModal from '../modal/RegisterModal'
-import UrlsModal from '../modal/UrlsModal.'
-import { AppDispatch, RootState } from '../../redux/store'
-import { logout } from '../../redux/slice/authSlice'
+import RegisterModal from './../modal/RegisterModal'
+import UrlsModal from './../modal/UrlsModal.'
 
 const Navbar = () => {
   const [openSidebar, setOpenSidebar] = useState(false)
