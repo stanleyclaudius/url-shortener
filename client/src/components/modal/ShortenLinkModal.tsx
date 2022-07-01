@@ -91,9 +91,10 @@ const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
               <p className='text-sm text-gray-500'>To</p>
               <div className='flex-1 h-[1px] border border-dashed border-gray-300' />
             </div>
+            <p className='text-xs text-red-500'>* Custom URL is automatically prefixed with {window.location.href}
+            <p className='text-xs text-red-500 mb-4 mt-1'>* Input the custom URL only (e.g. cool-url)</p></p>
             <div className='bg-gray-100 p-4 rounded-md flex items-center gap-4 mb-7'>
               <BsLink45Deg className='text-3xl text-gray-500 shrink-0' />
-              <p className='text-sm text-gray-500'>{window.location.href}</p>
               <input type='text' value={shorterUrl} onChange={e => setShorterUrl(e.target.value)} placeholder='Cutom shorter URL (optional)' className='w-full bg-transparent text-sm outline-0 text-gray-500' />
             </div>
             <div className='text-center'>

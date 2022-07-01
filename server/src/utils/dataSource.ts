@@ -11,7 +11,7 @@ let obj: Partial<DataSourceOptions> = {}
 if (isProduction) {
   obj = {
     type: 'postgres',
-    url: 'postgres://vpyvpzkhamwnvc:0652a811d2d8f6e3251df0e57bcd9f3060caafd085ecacc54212cdd49ca06ef0@ec2-34-233-115-14.compute-1.amazonaws.com:5432/dlmusv5e5eraa',
+    url: process.env.DATABASE_URL,
     logging: true,
     migrations: ['dist/migrations/*.js'],
     entities: ['dist/entities/*.js']
