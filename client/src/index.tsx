@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import DataProvider from './redux/store';
 import './index.css'
 
 const root = ReactDOM.createRoot(
@@ -7,5 +8,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <App />
+  <DataProvider>
+    <App />
+  </DataProvider>
 )

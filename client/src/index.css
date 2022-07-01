@@ -16,3 +16,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.Toastify__toast-container {
+  z-index: 99999;
+}

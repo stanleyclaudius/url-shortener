@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
 import { FormSubmit, InputChange } from './../../utils/Interface'
+import { login } from './../../redux/slice/authSlice'
+import { AppDispatch, RootState } from '../../redux/store'
+import { isEmailValid } from '../../utils/helper'
+import Loader from '../general/Loader'
 
 interface IProps {
   openModal: boolean
@@ -15,13 +20,42 @@ const LoginModal = ({ openModal, setOpenModal }: IProps) => {
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
+  const dispatch = useDispatch<AppDispatch>()
+  const { alert } = useSelector((state: RootState) => state)
+
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
 
-  const handleSubmit = (e: FormSubmit) => {
+  const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
+
+    if (!userData.email) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Please provide your email to login.' }
+      })
+    } else if (!isEmailValid(userData.email)) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Please provide valid email address to login.' }
+      })
+    }
+
+    if (!userData.password) {
+      return dispatch({
+        type: 'alert/alert',
+        payload: { error: 'Please provide your password to login.' }
+      })
+    }
+
+    await dispatch(login(userData))
+    setUserData({
+      email: '',
+      password: ''
+    })
+    setOpenModal(false)
   }
 
   useEffect(() => {
@@ -55,7 +89,13 @@ const LoginModal = ({ openModal, setOpenModal }: IProps) => {
             <input type='password' name='password' id='password' value={userData.password} onChange={handleChange} autoComplete='off' className='w-full border border-gray-300 rounded-md outline-0 mt-3 indent-3 h-10 text-sm' />
           </div>
           <div className='text-right'>
-            <button className='text-sm text-white bg-primary hover:bg-primaryHover transition-all rounded-md px-3 py-2 outline-0'>Sign In</button>
+            <button disabled={alert.loading ? true : false} className={`text-sm text-white ${alert.loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-primary hover:bg-primaryHover cursor-pointer'} transition-all rounded-md px-3 py-2 outline-0`}>
+              {
+                alert.loading
+                ? <Loader />
+                : 'Sign In'
+              }
+            </button>
           </div>
         </form>
       </div>
