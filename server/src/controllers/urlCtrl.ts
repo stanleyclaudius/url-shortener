@@ -63,12 +63,23 @@ const urlCtrl = {
   },
   deleteUrl: async(req: IReqUser, res: Response) => {
     try {
+      const findUrl = await AppDataSource.query(
+        `
+          SELECT *
+          FROM url
+          WHERE id = $1 AND "userId" = $2
+        `
+      , [req.params.id, req.user?.id])
+
+      if (findUrl.length === 0)
+        return res.status(400).json({ error: 'This user doesn\'t own chosen URL.' })
+
       await AppDataSource
               .getRepository(Url)
               .createQueryBuilder()
               .delete()
               .from(Url)
-              .where('id = :id AND "userId" := userId', { id: req.params.id, userId: req.user?.id })
+              .where('id = :id', { id: req.params.id })
               .execute()
 
       return res.status(200).json({ msg: 'URL has been deleted successfully.' })
