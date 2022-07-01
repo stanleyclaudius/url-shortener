@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange } from './../../utils/Interface'
-import { AppDispatch, RootState } from './../../redux/store'
+import { AppDispatch } from './../../redux/store'
 import { isEmailValid } from './../../utils/helper'
 import { register } from './../../redux/slice/authSlice'
-import Loader from './../general/Loader'
+import Button from './../general/Button'
 
 interface IProps {
   openModal: boolean
@@ -23,7 +23,6 @@ const RegisterModal = ({ openModal, setOpenModal }: IProps) => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch<AppDispatch>()
-  const { alert } = useSelector((state: RootState) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -128,13 +127,7 @@ const RegisterModal = ({ openModal, setOpenModal }: IProps) => {
             <input type='password' name='passwordConfirmation' id='passwordConfirmation' value={userData.passwordConfirmation} onChange={handleChange} className='w-full border border-gray-300 rounded-md outline-0 mt-3 indent-3 h-10 text-sm' />
           </div>
           <div className='text-right'>
-            <button disabled={alert.loading ? true : false} className={`text-sm text-white ${alert.loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-primary hover:bg-primaryHover cursor-pointer'} transition-all rounded-md px-3 py-2 outline-0`}>
-              {
-                alert.loading
-                ? <Loader />
-                : 'Sign Up'
-              }
-            </button>
+            <Button text='Sign Up' />
           </div>
         </form>
       </div>

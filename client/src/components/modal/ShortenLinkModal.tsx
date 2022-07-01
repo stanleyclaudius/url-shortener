@@ -6,7 +6,7 @@ import { FormSubmit } from './../../utils/Interface'
 import { AppDispatch, RootState } from './../../redux/store'
 import { isURLValid } from './../../utils/helper'
 import { shortenUrl } from './../../redux/slice/urlSlice'
-import Loader from './../general/Loader'
+import Button from './../general/Button'
 
 interface IProps {
   url: string
@@ -21,7 +21,7 @@ const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch<AppDispatch>()
-  const { auth, alert } = useSelector((state: RootState) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
@@ -92,17 +92,12 @@ const ShortenLinkModal = ({ url, openModal, setOpenModal, setUrl }: IProps) => {
               <div className='flex-1 h-[1px] border border-dashed border-gray-300' />
             </div>
             <div className='bg-gray-100 p-4 rounded-md flex items-center gap-4 mb-7'>
-              <BsLink45Deg className='text-3xl text-gray-500' />
+              <BsLink45Deg className='text-3xl text-gray-500 shrink-0' />
+              <p className='text-sm text-gray-500'>{window.location.href}</p>
               <input type='text' value={shorterUrl} onChange={e => setShorterUrl(e.target.value)} placeholder='Cutom shorter URL (optional)' className='w-full bg-transparent text-sm outline-0 text-gray-500' />
             </div>
             <div className='text-center'>
-              <button disabled={alert.loading ? true : false} className={`text-sm ${alert.loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-primary hover:bg-primaryHover cursor-pointer'} transition-all rounded-md outline-0 shadow-xl text-white px-4 py-3`}>
-                {
-                  alert.loading
-                  ? <Loader />
-                  : 'Shorten'
-                }
-              </button>
+              <Button text='Shorten' />
             </div>
           </form>
         </div>
