@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+  url-shortener-app:
+    container_name: url-shortener
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      - ACCESS_TOKEN_SECRET=DYnXaugZQy6r97Baxwu3c9Kp7DQrzwaM7gHVUPkB5uqZyBQAtzz7G6vRQGgTKQNNeaGpqFeWwnWZ5Q6zrrvryWgtjMZGsYStQBmg
+      - REFRESH_TOKEN_SECRET=z95m2C7usMjsWxwvKuXBjrMk2JpfuzRm859sTzYcmhRnyKEF8MnMUCG3WPBmNsxXMLdpZ269yBT2k2tsGvX3Eq3fjHS8hTTk7tm6
+      - CLIENT_URL=http://localhost:3000
+      - PORT=5000
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=password  
+      - DB_HOST=postgres
+    depends_on:
+      - postgres
+    networks:
+      - url-shortener
+
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - url-shortener
+
+volumes:
+  postgres:
+
+networks:
+  url-shortener:
